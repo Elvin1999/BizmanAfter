@@ -9,5 +9,5 @@ export const getToken=async()=>{
 }
 
 export const removeToken=async()=>{
-    await AsyncStorage.removeItem('token');
+    await AsyncStorage.setItem('token','');
 }
