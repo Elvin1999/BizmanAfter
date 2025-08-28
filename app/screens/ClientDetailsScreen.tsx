@@ -1,3 +1,4 @@
+import ClientSalesChart from "@/components/charts/ClientSalesChart";
 import { useNavigation } from "expo-router";
 import { useEffect, useState } from "react";
 import { SafeAreaView, ScrollView, Text, View } from "react-native";
@@ -10,10 +11,14 @@ export default function ClientDetails({ route }: any) {
     const { client } = route.params;
     const [sales, setSales] = useState<any[]>([]);
 
-    useEffect(() => {
+    const loadClients = () => {
         getClientSales(client.id, (data: any[]) => {
             setSales(data);
         })
+    }
+
+    useEffect(() => {
+        loadClients();
     }, [client]);
 
     return (
@@ -21,8 +26,11 @@ export default function ClientDetails({ route }: any) {
             <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Name : {client.name}</Text>
             <Text>Phone : {client.phone}</Text>
             <Text>Email : {client.email}</Text>
+
+            <ClientSalesChart salesObject={{sales:sales}} />
+
             <Text style={{ marginTop: 20, fontSize: 18, fontWeight: 'bold' }}>Sales</Text>
-            <ScrollView>
+            <ScrollView style={{height:200}}>
                 {
                     sales.map((sale) => (
                         <View key={sale.id} style={{ marginVertical: 8, padding: 8, backgroundColor: '#eee' }}>
@@ -36,7 +44,7 @@ export default function ClientDetails({ route }: any) {
                     ))
                 }
             </ScrollView>
-            <Button mode="contained" style={{ marginTop: 12 }} onPress={() => navigation.navigate('AddSale', { client })}>
+            <Button mode="contained" style={{ marginTop: 12 }} onPress={() => navigation.navigate('AddSale', { client, loadClients })}>
                 Add Sale
             </Button>
         </SafeAreaView>

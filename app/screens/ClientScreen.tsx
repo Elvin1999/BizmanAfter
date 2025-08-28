@@ -153,6 +153,15 @@ export default function ClientScreen({ navigation }: any) {
 
             </DataTable>
 
+            {/* <Button mode="contained" onPress={()=>{
+                clients.map(client=>{
+                    insertSale(client.id,100,'2025-09-10');
+                    insertSale(client.id,222,'2020-01-01');
+                })
+            }} style={{ marginBottom: 16 }}>
+                Upload test 
+            </Button> */}
+
             <Snackbar visible={snackbar.visible}
                 onDismiss={() => setSnackbar({ visible: false, message: '' })}
                 duration={3000}
