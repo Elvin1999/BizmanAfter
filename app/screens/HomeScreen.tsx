@@ -24,7 +24,7 @@ export default function HomeScreen({ navigation }: any) {
             await initDatabase();
             await loadClients();
         })();
-    });
+    },[]);
 
     const clientsData = clients ?? [];
 
